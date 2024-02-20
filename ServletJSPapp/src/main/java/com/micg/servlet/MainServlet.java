@@ -22,12 +22,6 @@ public class MainServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         out.print("<h1>Hello Servlet</h1>");
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        super.doPost(req, resp);
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 }
