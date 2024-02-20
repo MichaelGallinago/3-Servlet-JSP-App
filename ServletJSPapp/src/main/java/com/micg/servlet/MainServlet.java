@@ -1,5 +1,6 @@
 package com.micg.servlet;
 
+import com.micg.servlet.service.FileSystemItemsService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,12 +16,22 @@ import java.util.Date;
 public class MainServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        PrintWriter out = resp.getWriter();
-        out.print("<h1>Hello Servlet</h1>");
+        String pathFromRequest = request.getParameter("path");
+        String currentDirPath = pathFromRequest == null ?
+                new File(".").getCanonicalPath() : pathFromRequest;
 
-        req.getRequestDispatcher("index.jsp").forward(req, resp);
+        request.setAttribute("currentDirPath", currentDirPath);
+        request.setAttribute("list", FileSystemItemsService.GetItemsFromDirectory(currentDirPath));
+
+        String parentDirPath = new File(currentDirPath).getParent();
+        request.setAttribute("parentDirPath", parentDirPath == null ? currentDirPath : parentDirPath);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm:ss");
+
+        request.setAttribute("generationTime", dateFormat.format(new Date()));
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

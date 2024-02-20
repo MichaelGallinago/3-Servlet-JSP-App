@@ -1,6 +1,6 @@
 package com.micg.servlet.model;
 
-public record File(String name, String path, String size, String date) implements FileType {
+public record File(String name, String path, String size, String date) implements FileSystemItem {
 
     @Override
     public String size() {
