@@ -19,13 +19,9 @@ public class FileSystemItemsService {
         currentDirectoryPath = directory;
         fileSystemElementsInCurrentDir = new ArrayList<>();
 
-        // Создаем объект File, представляющий текущую директорию
         File currentDirectory = new File(currentDirectoryPath);
-
-        // Получаем список элементов текущей директории
         File[] itemsData = currentDirectory.listFiles();
 
-        // Выводим список элементов текущей директории на экран
         if (itemsData != null) {
             Arrays.stream(itemsData).forEach(FileSystemItemsService::GetItem);
         }

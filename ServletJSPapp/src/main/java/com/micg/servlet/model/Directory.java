@@ -9,7 +9,7 @@ public record Directory(String name, String path, String date) implements FileSy
 
     @Override
     public String path() {
-        return path + "\\" + name;
+        return path + "/" + name;
     }
 
     @Override

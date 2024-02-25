@@ -20,7 +20,6 @@ public class DownloadServlet extends HttpServlet {
         String currentFilePath = httpServletRequest.getParameter("path");
         try (FileInputStream fileInputStream = new FileInputStream(currentFilePath)) {
 
-            // Устанавливаю заголовок для скачивания файла
             httpServletResponse.setHeader("Content-Disposition",
                     "attachment; filename=\"" + new File(currentFilePath).getName() + "\"");
 

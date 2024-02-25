@@ -20,8 +20,8 @@ public class MainServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String pathFromRequest = request.getParameter("path");
-        String currentDirPath = pathFromRequest == null ?
-                new File(".").getCanonicalPath() : pathFromRequest;
+        String currentDirPath = (pathFromRequest == null ?
+                new File(".").getCanonicalPath() : pathFromRequest).replace('\\', '/');
 
         request.setAttribute("currentDirPath", currentDirPath);
         request.setAttribute("list", FileSystemItemsService.GetItemsFromDirectory(currentDirPath));

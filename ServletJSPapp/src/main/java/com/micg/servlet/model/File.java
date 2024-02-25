@@ -9,6 +9,6 @@ public record File(String name, String path, String size, String date) implement
 
     @Override
     public String path() {
-        return path + "\\" + name;
+        return path + "/" + name;
     }
 }
